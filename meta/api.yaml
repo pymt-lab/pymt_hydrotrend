@@ -1,0 +1,4 @@
+name: hydrotrend
+language: c
+package: hydrotrend
+class: Hydrotrend

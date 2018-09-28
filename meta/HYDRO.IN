@@ -1,0 +1,47 @@
+Waipaoa 50yrs present
+ON				2) Write output to ASCII files (ON/OFF)
+./HYDRO_OUTPUT/		3) Location where the output data will be stored (not optional for web)
+1				4) No. of epochs to run (leave 1 line blank between epochs; start copying from nr 5)
+0 {{run_duration}} d		5) Start year; no. of years to run; averaging interval: D,M,S or Y
+4				6) Number of suspended sed. grain sizes to simulate (max 10)
+.2 .2 .25 .35	7) Proportion of sediment in each grain size (sum=1)
+{{starting_mean_annual_temperature}} {{change_in_mean_annual_temperature}} {{standard_deviation_of_mean_annual_temperature}}  8) Yrly Tbar: start (C), change/yr (C/a), std dev
+{{total_annual_precipitation}} {{change_in_total_annual_precipitation}} {{standard_deviation_of_total_annual_precipitation}} 9) Yrly P sum: start (m/a), change/yr (m/a/a), std. dev (m).
+1. 1.9 7	10) Rain: Mass Balance Coef, Distribution Exp, Distribution Range
+{{base_flow}}		11) Constant annual base flow (m^3/s)
+Jan  {{ "%5.2f" | format(january_temperature_mean|float) }} {{ "%5.2f" | format(january_temperature_standard_deviation|float) }} {{ "%5.2f" | format(january_precipitation_mean|float) }} {{ "%5.2f" | format(january_precipitation_standard_deviation|float) }} 12-23) monthly climate variables
+Feb  {{ "%5.2f" | format(february_temperature_mean|float) }} {{ "%5.2f" | format(february_temperature_standard_deviation|float) }} {{ "%5.2f" | format(february_precipitation_mean|float) }} {{ "%5.2f" | format(february_precipitation_standard_deviation|float) }} column  variable	description
+Mar  {{ "%5.2f" | format(march_temperature_mean|float) }} {{ "%5.2f" | format(march_temperature_standard_deviation|float) }} {{ "%5.2f" | format(march_precipitation_mean|float) }} {{ "%5.2f" | format(march_precipitation_standard_deviation|float) }} ------  --------	-----------
+Apr  {{ "%5.2f" | format(april_temperature_mean|float) }} {{ "%5.2f" | format(april_temperature_standard_deviation|float) }} {{ "%5.2f" | format(april_precipitation_mean|float) }} {{ "%5.2f" | format(april_precipitation_standard_deviation|float) }} 1	moname  	month name (not used)
+May  {{ "%5.2f" | format(may_temperature_mean|float) }} {{ "%5.2f" | format(may_temperature_standard_deviation|float) }} {{ "%5.2f" | format(may_precipitation_mean|float) }} {{ "%5.2f" | format(may_precipitation_standard_deviation|float) }} 2	tmpinm  	monthly mean T. (C)
+Jun  {{ "%5.2f" | format(june_temperature_mean|float) }} {{ "%5.2f" | format(june_temperature_standard_deviation|float) }} {{ "%5.2f" | format(june_precipitation_mean|float) }} {{ "%5.2f" | format(june_precipitation_standard_deviation|float) }} 3	tmpstd  	within month Std Dev. of T
+Jul  {{ "%5.2f" | format(july_temperature_mean|float) }} {{ "%5.2f" | format(july_temperature_standard_deviation|float) }} {{ "%5.2f" | format(july_precipitation_mean|float) }} {{ "%5.2f" | format(july_precipitation_standard_deviation|float) }} 4	raininm 	monthly total Precip. (mm)
+Aug  {{ "%5.2f" | format(august_temperature_mean|float) }} {{ "%5.2f" | format(august_temperature_standard_deviation|float) }} {{ "%5.2f" | format(august_precipitation_mean|float) }} {{ "%5.2f" | format(august_precipitation_standard_deviation|float) }} 5	rainstd 	Std Dev of the monthly P.
+Sep  {{ "%5.2f" | format(september_temperature_mean|float) }} {{ "%5.2f" | format(september_temperature_standard_deviation|float) }} {{ "%5.2f" | format(september_precipitation_mean|float) }} {{ "%5.2f" | format(september_precipitation_standard_deviation|float) }} .
+Oct  {{ "%5.2f" | format(october_temperature_mean|float) }} {{ "%5.2f" | format(october_temperature_standard_deviation|float) }} {{ "%5.2f" | format(october_precipitation_mean|float) }} {{ "%5.2f" | format(october_precipitation_standard_deviation|float) }} .
+Nov  {{ "%5.2f" | format(november_temperature_mean|float) }} {{ "%5.2f" | format(november_temperature_standard_deviation|float) }} {{ "%5.2f" | format(november_precipitation_mean|float) }} {{ "%5.2f" | format(november_precipitation_standard_deviation|float) }} .
+Dec  {{ "%5.2f" | format(december_temperature_mean|float) }} {{ "%5.2f" | format(december_temperature_standard_deviation|float) }} {{ "%5.2f" | format(december_precipitation_mean|float) }} {{ "%5.2f" | format(december_precipitation_standard_deviation|float) }} .
+{{lapse_rate}}			24) Lapse rate to calculate freezing line (degC/km)
+{{ela_start}} {{ela_change}} 	25) Starting glacier ELA (m) and ELA change per year (m/a)
+{{evaporation_fraction}}				26) Dry precip (nival and ice) evaporation fraction
+-0.1 0.85                       26a) canopy interception alphag(-0.1(mm/d)), betag(0.85(-))
+10 1                            26b) groundwater pole evapotranspiration alpha_gwe (common 10 (mm/d)), beta_gwe (common 1 (-))
+{{delta_gradient}}			27) Delta plain gradient (m/m)
+1.0                             27a) Bedload rating term (-)(typically 1.0; if set to -9999, 1.0 will be used)
+{{basin_length}}				28) River basin length (km)
+{{reservoir_volume}} d {{reservoir_area}}			29) Mean volume, (a)ltitude or (d)rainage area of reservoir (km^3)(m) or (km^2)
+{{river_velocity_coefficient}} {{river_velocity_exponent}}	30) River mouth velocity coef. (k) and exponent (m); v=kQ^m, w=aQ^b, d=cQ^f
+{{river_width_coefficient}} {{river_width_exponent}}	31) River mouth width coef.(a) and exponent (b); Q=wvd so ack=1 and b+m+f=1
+{{river_mean_velocity}}	32) Average river velocity (m/s)
+{{ "%.3e" | format(groundwater_storage_max|float) }} {{ "%.3e" | format(groundwater_storage_min|float) }}	33) Maximum/minimum groundwater storage (m^3)
+{{ "%.3e" | format(groundwater_storage_start|float)}}	34) Initial groundwater storage (m^3)
+{{groundwater_coefficient}}	{{groundwater_exponent}}	35) Groundwater (subsurface storm flow) coefficient (m^3/s) and exp (unitless)
+{{hydraulic_conductivity}}	36) Saturated hydraulic conductivity (mm/day)
+355 -39.5		37) Longitude, latitude position of the river mouth (decimal degrees)
+1				38) Nr. of outlets in a delta, 1 =  no outlets;
+1				39) Fraction Q for each outlet
+n1				40)	Certain Qpeak, above this, it change the nr of outlets or the Q fr. distribution
+{{trapping_efficiency}}				41) Fraction sediment trapped in delta (0 - 0.9; only if 39 > 1 or u or r)
+2                               42) 0)=QRT;  1) =ART)   2) =BQART
+{{bqrt_lithology_factor}}                             43) if line 42 is 2: Lithology factor from hard - weak material (0.3 - 3)^M
+{{bqrt_anthropogenic_factor}}	                        44) if line 42 is 2: Anthropogenic factor (0.5 - 8), human disturbance of the landscape

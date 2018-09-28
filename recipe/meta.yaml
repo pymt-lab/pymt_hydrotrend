@@ -1,0 +1,47 @@
+{% set name = "pymt_hydrotrend" %}
+{% set version = "0.1" %}
+{% set build = "0" %}
+
+package:
+  name: {{ name }}
+  version: {{ version }}
+
+source:
+  path: ..
+
+build:
+  number: {{ build }}
+  script: python -m pip install --no-deps --ignore-installed .
+
+requirements:
+  host:
+    - python
+    - setuptools
+    - numpy 1.11.*
+    - cython
+    - model_metadata
+    - hydrotrend 
+
+  run:
+    - python
+    - setuptools
+    - pymt
+    - hydrotrend 
+
+test:
+  requires:
+    - bmi-tester
+    - model_metadata
+  imports:
+    - pymt
+    - pymt_hydrotrend
+  commands:
+    - config_file=$(mmd-stage Hydrotrend . > MANIFEST && mmd-query Hydrotrend --var=run.config_file.path)
+    - bmi-test pymt_hydrotrend.bmi:Hydrotrend --infile=$config_file --manifest=MANIFEST -v
+
+about:
+  summary: Python package that wraps the hydrotrend BMI.
+  home: https://github.com/mcflugen/pymt_hydrotrend
+  license: MIT license
+  license_file: LICENSE
+  dev_url: https://github.com/mcflugen/pymt_hydrotrend
