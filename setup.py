@@ -1,11 +1,12 @@
 #! /usr/bin/env python
 import os
 import sys
-from distutils.extension import Extension
 
 import numpy as np
 import versioneer
 from setuptools import find_packages, setup
+
+from distutils.extension import Extension
 
 try:
     import model_metadata
