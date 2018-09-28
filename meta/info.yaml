@@ -11,3 +11,14 @@ email: albert.kettner@colorado.edu
 version: 3.0.1
 license: GPLv3
 doi: 10.1594/IEDA/100135
+cite_as: |
+  @article{kettner2008hydrotrend,
+    title={HydroTrend v. 3.0: a climate-driven hydrological transport model that simulates discharge and sediment load leaving a river system},
+    author={Kettner, Albert J and Syvitski, James PM},
+    journal={Computers \& Geosciences},
+    volume={34},
+    number={10},
+    pages={1170--1183},
+    year={2008},
+    publisher={Elsevier}
+  }
