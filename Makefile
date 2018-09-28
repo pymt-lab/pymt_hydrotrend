@@ -54,7 +54,7 @@ lint: ## check style with flake8
 	flake8 pymt_hydrotrend
 
 black:
-	isort setup.py pymt_hydrotrend/*
+	find pymt_hydrotrend -name '*.py' | xargs isort
 	black setup.py pymt_hydrotrend
 
 test: ## run tests quickly with the default Python
