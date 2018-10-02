@@ -33,15 +33,13 @@ Installing `pymt` from the `conda-forge` channel can be achieved by adding
   conda config --add channels conda-forge
 
 
-.. note::
+*Note*: Before installing `pymt`, you may want to create a separate environment
+into which to install it. This can be done with,
 
-  Before installing `pymt`, you may want to create a separate environment
-  into which to install it. This can be done with,
+.. code::
 
-  .. code::
-
-    conda create -n pymt python=3.6
-    conda activate pymt
+  conda create -n pymt python=3.6
+  conda activate pymt
 
 Once the `conda-forge` channel has been enabled, `pymt` can be installed with:
 
