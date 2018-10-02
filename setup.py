@@ -23,6 +23,9 @@ else:
     from model_metadata.utils import get_cmdclass, get_entry_points
 
 
+import numpy as np
+
+
 include_dirs = [np.get_include(), os.path.join(sys.prefix, "include")]
 
 
@@ -54,7 +57,7 @@ ext_modules = [
     )
 ]
 
-packages = find_packages(include=["pymt_hydrotrend"])
+packages = find_packages()
 pymt_components = [("Hydrotrend=pymt_hydrotrend.lib:Hydrotrend", "meta")]
 
 setup(

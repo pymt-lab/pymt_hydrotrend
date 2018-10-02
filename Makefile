@@ -53,7 +53,7 @@ clean-test: ## remove test and coverage artifacts
 lint: ## check style with flake8
 	flake8 pymt_hydrotrend
 
-black:
+pretty:
 	find pymt_hydrotrend -name '*.py' | xargs isort
 	black setup.py pymt_hydrotrend
 

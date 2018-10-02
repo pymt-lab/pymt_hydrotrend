@@ -21,15 +21,43 @@ PyMT plugin for hydrotrend
 * Documentation: https://hydrotrend.readthedocs.io.
 
 
-Features
---------
+Installing pymt
+---------------
 
-* TODO
+Installing `pymt` from the `conda-forge` channel can be achieved by adding
+`conda-forge` to your channels with:
 
-Credits
--------
+```
+conda config --add channels conda-forge
+```
 
-This package was created with Cookiecutter_ and the `audreyr/cookiecutter-pypackage`_ project template.
+Once the `conda-forge` channel has been enabled, `pymt` can be installed with:
 
-.. _Cookiecutter: https://github.com/audreyr/cookiecutter
-.. _`audreyr/cookiecutter-pypackage`: https://github.com/audreyr/cookiecutter-pypackage
+```
+conda install pymt
+```
+
+It is possible to list all of the versions of `pymt` available on your platform with:
+
+```
+conda search pymt --channel conda-forge
+```
+
+Installing pymt_hydrotrend
+--------------------------
+
+Once `pymt` is installed, the dependencies of `pymt_hydrotrend` can
+be installed with:
+
+```
+conda install hydrotrend
+```
+
+Until `pymt_hydrotrend` is available on `conda-forge`, it must
+by installed from source,
+
+```
+git clone https://github.com/mcflugen/pymt_hydrotrend
+cd pymt_hydrotrend
+python setup.py install
+```
