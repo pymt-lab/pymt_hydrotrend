@@ -1,2 +1,5 @@
-cython==0.27.3
-numpy==1.14.2
+cython
+numpy
+model_metadata
+hydrotrend 
+pymt
