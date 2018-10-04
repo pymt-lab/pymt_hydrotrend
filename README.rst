@@ -63,11 +63,8 @@ be installed with:
 
   conda install hydrotrend
 
-Until `pymt_hydrotrend` is available on `conda-forge`, it must
-by installed from source,
+To install `pymt_hydrotrend`,
 
 .. code::
 
-  git clone https://github.com/mcflugen/pymt_hydrotrend
-  cd pymt_hydrotrend
-  python setup.py install
+  conda install pymt_hydrotrend
