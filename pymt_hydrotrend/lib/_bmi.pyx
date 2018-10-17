@@ -84,7 +84,7 @@ cdef class Hydrotrend:
         if self._bmi is NULL:
             raise MemoryError()
         else:
-            Hydrotrend(self._bmi)
+            register_bmi_hydrotrend(self._bmi)
 
     def initialize(self, config_file):
         status = <int>bmi_initialize(self._bmi, <char*>config_file, <void**>&(self._bmi))

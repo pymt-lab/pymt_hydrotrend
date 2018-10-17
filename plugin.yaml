@@ -12,9 +12,10 @@ info:
   plugin_license: MIT
   summary: PyMT plugin for hydrotrend
 library:
-  entry_point: Hydrotrend=hydrotrend:Hydrotrend
+  entry_point:
+  - Hydrotrend=hydrotrend:register_bmi_hydrotrend
   language: c
-  register: register_bmi_hydrotrend
+  register: ''
 plugin:
   name: hydrotrend
   requirements:
