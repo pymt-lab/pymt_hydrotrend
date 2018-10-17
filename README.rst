@@ -1,10 +1,14 @@
-==========
-hydrotrend
-==========
+===============
+pymt_hydrotrend
+===============
 
 
-.. image:: https://img.shields.io/pypi/v/pymt_hydrotrend.svg
-        :target: https://pypi.python.org/pypi/pymt_hydrotrend
+.. image:: https://img.shields.io/badge/CSDMS-Basic%20Model%20Interface-green.svg
+        :target: https://bmi-forum.readthedocs.io/
+        :alt: Basic Model Interface
+
+.. image:: https://img.shields.io/badge/recipe-pymt_hydrotrend-green.svg
+        :target: https://anaconda.org/conda-forge/pymt_hydrotrend
 
 .. image:: https://img.shields.io/travis/mcflugen/pymt_hydrotrend.svg
         :target: https://travis-ci.org/mcflugen/pymt_hydrotrend
@@ -12,6 +16,10 @@ hydrotrend
 .. image:: https://readthedocs.org/projects/pymt_hydrotrend/badge/?version=latest
         :target: https://pymt_hydrotrend.readthedocs.io/en/latest/?badge=latest
         :alt: Documentation Status
+
+.. image:: https://img.shields.io/badge/code%20style-black-000000.svg
+        :target: https://github.com/csdms/pymt
+        :alt: Code style: black
 
 
 PyMT plugin for hydrotrend

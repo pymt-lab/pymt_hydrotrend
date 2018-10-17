@@ -25,7 +25,6 @@ requirements:
   run:
     - python
     - {{ pin_compatible('numpy') }}
-    - pymt
     - hydrotrend 
 
 test:
@@ -33,7 +32,6 @@ test:
     - bmi-tester
     - model_metadata
   imports:
-    - pymt
     - pymt_hydrotrend
   commands:
     - config_file=$(mmd-stage Hydrotrend . > MANIFEST && mmd-query Hydrotrend --var=run.config_file.path)

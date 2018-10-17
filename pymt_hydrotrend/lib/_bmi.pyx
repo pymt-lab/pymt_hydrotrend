@@ -72,8 +72,8 @@ cdef extern from "bmi.c":
 def ok_or_raise(status):
     if status != 0:
         raise RuntimeError('error code {status}'.format(status=status))
-
-
+        
+        
 cdef class Hydrotrend:
     cdef _bmi.BMI_Model* _bmi
     cdef char[2048] STR_BUFFER
@@ -84,7 +84,7 @@ cdef class Hydrotrend:
         if self._bmi is NULL:
             raise MemoryError()
         else:
-            register_bmi_hydrotrend(self._bmi)
+            Hydrotrend(self._bmi)
 
     def initialize(self, config_file):
         status = <int>bmi_initialize(self._bmi, <char*>config_file, <void**>&(self._bmi))
@@ -269,5 +269,7 @@ cdef class Hydrotrend:
     cpdef get_grid_origin(self, int gid, np.ndarray[double, ndim=1] origin):
         ok_or_raise(<int>bmi_get_grid_origin(self._bmi, gid, &origin[0]))
         return origin
+
+    
 
 

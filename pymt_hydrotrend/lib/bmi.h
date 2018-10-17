@@ -70,9 +70,7 @@ typedef struct {
   int (* get_grid_offset)(void *, int, int *);
 } BMI_Model;
 
-
-BMI_Model * register_bmi_hydrotrend(BMI_Model *model);
-
+BMI_Model * Hydrotrend(BMI_Model *model);
 
 #if defined(__cplusplus)
 }

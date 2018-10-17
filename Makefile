@@ -59,7 +59,7 @@ pretty:
 
 test: ## run tests quickly with the default Python
 	config_file=$(mmd-stage Hydrotrend . > MANIFEST && mmd-query Hydrotrend --var=run.config_file.path)
-	bmi-test pymt_hydrotrend._hydrotrend:Hydrotrend --infile=$config_file --manifest=MANIFEST -v
+	bmi-test pymt_hydrotrend.bmi:Hydrotrend --infile=$config_file --manifest=MANIFEST -v
 
 test-all: ## run tests on every Python version with tox
 	tox
@@ -71,9 +71,9 @@ coverage: ## check code coverage quickly with the default Python
 	$(BROWSER) htmlcov/index.html
 
 docs: ## generate Sphinx HTML documentation, including API docs
-	rm -f docs/hydrotrend.rst
+	rm -f docs/pymt_hydrotrend.rst
 	rm -f docs/modules.rst
-	sphinx-apidoc -o docs/ hydrotrend
+	sphinx-apidoc -o docs/ pymt_hydrotrend
 	$(MAKE) -C docs clean
 	$(MAKE) -C docs html
 	$(BROWSER) docs/_build/html/index.html

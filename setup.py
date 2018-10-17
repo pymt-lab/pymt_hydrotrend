@@ -58,7 +58,7 @@ ext_modules = [
 ]
 
 packages = find_packages()
-pymt_components = [("Hydrotrend=pymt_hydrotrend.lib:Hydrotrend", "meta")]
+pymt_components = [("Hydrotrend=pymt_hydrotrend.lib:Hydrotrend", "meta/Hydrotrend")]
 
 setup(
     name="pymt_hydrotrend",
