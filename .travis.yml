@@ -2,6 +2,7 @@ language: generic
 os:
 - osx
 - linux
+osx_image: xcode6.4
 env:
   matrix:
   - TRAVIS_PYTHON_VERSION="2.7"
