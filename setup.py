@@ -8,20 +8,6 @@ from setuptools import find_packages, setup
 
 from distutils.extension import Extension
 
-try:
-    import model_metadata
-except ImportError:
-
-    def get_cmdclass(*args, **kwds):
-        return kwds.get("cmdclass", None)
-
-    def get_entry_points(*args):
-        return None
-
-
-else:
-    from model_metadata.utils import get_cmdclass, get_entry_points
-
 
 import numpy as np
 
@@ -33,6 +19,8 @@ libraries = ["bmi_hydrotrend"]
 
 
 library_dirs = []
+if sys.platform.startswith("win"):
+    library_dirs.append(os.path.join(sys.prefix, "Library", "lib"))
 
 
 define_macros = []
@@ -58,7 +46,13 @@ ext_modules = [
 ]
 
 packages = find_packages()
-pymt_components = [("Hydrotrend=pymt_hydrotrend.lib:Hydrotrend", "meta/Hydrotrend")]
+entry_points = {
+    "pymt.plugins": [
+        "Hydrotrend=pymt_hydrotrend.bmi:Hydrotrend",
+    ]
+}
+
+cmdclass = versioneer.get_cmdclass()
 
 setup(
     name="pymt_hydrotrend",
@@ -68,6 +62,7 @@ setup(
     setup_requires=["cython"],
     ext_modules=ext_modules,
     packages=packages,
-    cmdclass=get_cmdclass(pymt_components, cmdclass=versioneer.get_cmdclass()),
-    entry_points=get_entry_points(pymt_components),
+    cmdclass=cmdclass,
+    entry_points=entry_points,
+    include_package_data=True,
 )
