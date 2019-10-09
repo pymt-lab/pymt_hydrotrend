@@ -40,6 +40,4 @@ install:
 script:
 - python setup.py develop
 - python -c 'import pymt_hydrotrend'
-- |
-  config_file=$(mmd-stage Hydrotrend . > MANIFEST && mmd-query Hydrotrend --var=run.config_file.path)
-  bmi-test pymt_hydrotrend.bmi:Hydrotrend --infile=$config_file --manifest=MANIFEST -v
+- bmi-test pymt_hydrotrend.bmi:Hydrotrend -vvv
