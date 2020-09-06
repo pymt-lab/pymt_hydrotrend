@@ -48,7 +48,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'pymt_hydrotrend'
-copyright = u"2018, Eric Hutton"
+copyright = u"2020, Eric Hutton"
 author = u"Eric Hutton"
 
 # The version info for the project you're documenting, acts as replacement

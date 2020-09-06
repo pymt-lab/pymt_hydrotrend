@@ -2,15 +2,13 @@ language: generic
 os:
 - osx
 - linux
-osx_image: xcode6.4
 env:
   matrix:
-  - TRAVIS_PYTHON_VERSION="2.7"
-  - TRAVIS_PYTHON_VERSION="3.6"
-  - TRAVIS_PYTHON_VERSION="3.7"
+  - PYTHON="3.6"
+  - PYTHON="3.7"
+  - PYTHON="3.8"
   global:
   - CONDA_PREFIX=$HOME/miniconda
-  - MINICONDA_URL_BASE="https://repo.continuum.io/miniconda/Miniconda3-latest"
 sudo: false
 before_install:
 - |
@@ -19,27 +17,30 @@ before_install:
     brew cleanup -s
     rm -rf $(brew --cache)
   fi
-install:
 - |
   if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
     OS="MacOSX-x86_64"
   else
     OS="Linux-x86_64"
   fi
-- curl $MINICONDA_URL_BASE-$OS.sh > $HOME/minconda.sh
-- bash $HOME/minconda.sh -b -p $CONDA_PREFIX
-- export PATH="$CONDA_PREFIX/bin:$PATH"
+- |
+  if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
+    curl https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-x86_64.sh > $HOME/miniconda.sh
+  else
+    curl https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh > $HOME/miniconda.sh
+  fi
+- bash $HOME/miniconda.sh -b -p $(pwd)/anaconda
+- export PATH="$(pwd)/anaconda/bin:$PATH"
 - hash -r
 - conda config --set always_yes yes --set changeps1 no
 - conda config --add channels conda-forge
-- conda create -n _testing python=$TRAVIS_PYTHON_VERSION
+- conda create -n _testing python=$PYTHON
 - source activate _testing
-- conda install -q conda-build anaconda-client
-- conda install -q --file=requirements.txt
-- conda install -q bmi-tester model_metadata
+- conda info -a && conda list
+install:
+- conda install -q --file=requirements-library.txt
+- pip install -e .
 script:
-- python setup.py develop
+- conda install -q --file=requirements-testing.txt
 - python -c 'import pymt_hydrotrend'
-- |
-  config_file=$(mmd-stage Hydrotrend . > MANIFEST && mmd-query Hydrotrend --var=run.config_file.path)
-  bmi-test pymt_hydrotrend.bmi:Hydrotrend --infile=$config_file --manifest=MANIFEST -v
+- bmi-test pymt_hydrotrend.bmi:Hydrotrend -vvv

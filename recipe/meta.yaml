@@ -21,7 +21,6 @@ requirements:
     - numpy 1.11.*
     - model_metadata
     - hydrotrend 
-
   run:
     - python
     - {{ pin_compatible('numpy') }}
@@ -35,11 +34,11 @@ test:
     - pymt_hydrotrend
   commands:
     - config_file=$(mmd-stage Hydrotrend . > MANIFEST && mmd-query Hydrotrend --var=run.config_file.path)
-    - bmi-test pymt_hydrotrend.bmi:Hydrotrend --infile=$config_file --manifest=MANIFEST -v
+    - bmi-test pymt_hydrotrend.bmi:Hydrotrend --config-file=$config_file --manifest=MANIFEST -v
 
 about:
   summary: Python package that wraps the hydrotrend BMI.
   home: https://github.com/mcflugen/pymt_hydrotrend
-  license: MIT license
+  license: MIT License
   license_file: LICENSE
   dev_url: https://github.com/mcflugen/pymt_hydrotrend

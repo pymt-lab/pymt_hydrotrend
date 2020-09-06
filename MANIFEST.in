@@ -1,2 +1,13 @@
-include versioneer.py
-include pymt_hydrotrend/_version.py
+recursive-include pymt_hydrotrend/data *
+include LICENSE
+include requirements.txt
+include *.rst
+include *.txt
+include Makefile
+include babel.toml
+include pymt_rafem/data
+recursive-include docs *.py
+recursive-include docs *.rst
+recursive-include docs Makefile
+recursive-exclude meta *
+recursive-exclude recipe *

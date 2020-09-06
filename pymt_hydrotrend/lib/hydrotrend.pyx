@@ -6,10 +6,6 @@ from libc.stdlib cimport malloc, free
 cimport numpy as np
 import numpy as np
 
-cimport _bmi
-
-
-
 
 SIZEOF_FLOAT = 8 * ctypes.sizeof(ctypes.c_float)
 SIZEOF_DOUBLE = 8 * ctypes.sizeof(ctypes.c_double)
@@ -25,19 +21,24 @@ DTYPE_C_TO_PY = {
 }
 
 
+cdef extern from "bmi.h":
+    ctypedef struct BMI_Model:
+        pass
+
+
 cdef extern from "bmi.c":
     BMI_Model* bmi_new()
 
-    int bmi_initialize(BMI_Model* model, const char *config_file, void**self)
+    int bmi_initialize(BMI_Model* model, const char *config_file)
     int bmi_update(BMI_Model* model)
     int bmi_update_until(BMI_Model* model, double until)
-    int bmi_update_frac(BMI_Model* model, double frac)
+    # int bmi_update_frac(BMI_Model* model, double frac)
     int bmi_finalize(BMI_Model* model)
-    int bmi_run_model(BMI_Model* model)
+    # int bmi_run_model(BMI_Model* model)
 
     int bmi_get_component_name(BMI_Model* model, char* name)
-    int bmi_get_input_var_name_count(BMI_Model* model, int *count)
-    int bmi_get_output_var_name_count(BMI_Model* model, int *count)
+    int bmi_get_input_item_count(BMI_Model* model, int *count)
+    int bmi_get_output_item_count(BMI_Model* model, int *count)
 
     int bmi_get_input_var_names(BMI_Model* model, char **names)
     int bmi_get_output_var_names(BMI_Model* model, char **names)
@@ -55,10 +56,12 @@ cdef extern from "bmi.c":
     int bmi_get_time_units(BMI_Model* model, char* units)
     int bmi_get_time_step(BMI_Model* model, double* time)
 
-    int bmi_get_value(BMI_Model* model, const char* name, void * buffer)
+    int bmi_get_value(BMI_Model* model, const char* name, void * dest)
     int bmi_get_value_ptr(BMI_Model* model, const char* name, void ** ptr)
+    int bmi_get_value_at_indices(BMI_Model* model, const char* name, void * dest, int *inds, int count)
 
-    int bmi_set_value(BMI_Model* model, const char* name, void *buffer)
+    int bmi_set_value(BMI_Model* model, const char* name, void *src)
+    int bmi_set_value_at_indices(BMI_Model* model, const char* name, int *inds, int count, void *src)
 
     int bmi_get_grid_rank(BMI_Model* model, int gid, int *rank)
     int bmi_get_grid_size(BMI_Model* model, int gid, int *size)
@@ -68,18 +71,41 @@ cdef extern from "bmi.c":
     int bmi_get_grid_spacing(BMI_Model* model, int gid, double* spacing)
     int bmi_get_grid_origin(BMI_Model* model, int gid, double* origin)
 
+    int bmi_get_grid_x(BMI_Model *model, int grid, double *x)
+    int bmi_get_grid_y(BMI_Model *model, int grid, double *y)
+    int bmi_get_grid_z(BMI_Model *model, int grid, double *z)
+
+    int bmi_get_grid_node_count(BMI_Model *model, int grid, int *count)
+    int bmi_get_grid_edge_count(BMI_Model *model, int grid, int *count)
+    int bmi_get_grid_face_count(BMI_Model *model, int grid, int *count)
+
+    int bmi_get_grid_edge_nodes(BMI_Model *model, int grid, int *edge_nodes)
+    int bmi_get_grid_face_edges(BMI_Model *model, int grid, int *face_edges)
+    int bmi_get_grid_face_nodes(BMI_Model *model, int grid, int *face_nodes)
+    int bmi_get_grid_nodes_per_face(BMI_Model *model, int grid, int *nodes_per_face)
+
 
 def ok_or_raise(status):
     if status != 0:
         raise RuntimeError('error code {status}'.format(status=status))
-        
-        
+    
+    
+
+# start: hydrotrend.pyx
+
+cdef extern from "bmi.h":
+    BMI_Model* register_bmi_hydrotrend(BMI_Model *model)
+
+
 cdef class Hydrotrend:
-    cdef _bmi.BMI_Model* _bmi
+    cdef BMI_Model* _bmi
     cdef char[2048] STR_BUFFER
 
+    METADATA = "../data/Hydrotrend"
+
     def __cinit__(self):
-        self._bmi = bmi_new()
+        # self._bmi = bmi_new()
+        self._bmi = <BMI_Model*>malloc(sizeof(BMI_Model))
 
         if self._bmi is NULL:
             raise MemoryError()
@@ -87,7 +113,8 @@ cdef class Hydrotrend:
             register_bmi_hydrotrend(self._bmi)
 
     def initialize(self, config_file):
-        status = <int>bmi_initialize(self._bmi, <char*>config_file, <void**>&(self._bmi))
+        status = <int>bmi_initialize(self._bmi, <char*>config_file)
+        # status = <int>bmi_initialize(self._bmi, <char*>config_file, <void**>&(self._bmi))
         ok_or_raise(status)
 
     def update(self):
@@ -98,12 +125,12 @@ cdef class Hydrotrend:
         status = <int>bmi_update_until(self._bmi, time)
         ok_or_raise(status)
 
-    def update_frac(self, frac):
-        status = <int>bmi_update_frac(self._bmi, frac)
-        ok_or_raise(status)
+    # def update_frac(self, frac):
+    #     status = <int>bmi_update_frac(self._bmi, frac)
+    #     ok_or_raise(status)
 
-    def run_model(self):
-        ok_or_raise(<int>bmi_run_model(self._bmi))
+    # def run_model(self):
+    #     ok_or_raise(<int>bmi_run_model(self._bmi))
 
     def finalize(self):
         status = <int>bmi_finalize(self._bmi)
@@ -113,14 +140,14 @@ cdef class Hydrotrend:
         ok_or_raise(<int>bmi_get_component_name(self._bmi, self.STR_BUFFER))
         return self.STR_BUFFER
 
-    cpdef int get_input_var_name_count(self):
+    cpdef int get_input_item_count(self):
         cdef int count = 0
-        ok_or_raise(<int>bmi_get_input_var_name_count(self._bmi, &count))
+        ok_or_raise(<int>bmi_get_input_item_count(self._bmi, &count))
         return count
 
-    cpdef int get_output_var_name_count(self):
+    cpdef int get_output_item_count(self):
         cdef int count = 0
-        ok_or_raise(<int>bmi_get_output_var_name_count(self._bmi, &count))
+        ok_or_raise(<int>bmi_get_output_item_count(self._bmi, &count))
         return count
 
     def get_input_var_names(self):
@@ -130,7 +157,7 @@ cdef class Hydrotrend:
         cdef int count
         cdef int status = 1
 
-        ok_or_raise(<int>bmi_get_input_var_name_count(self._bmi, &count))
+        ok_or_raise(<int>bmi_get_input_item_count(self._bmi, &count))
 
         try:
             names = <char**>malloc(count * sizeof(char*))
@@ -157,7 +184,7 @@ cdef class Hydrotrend:
         cdef int count
         cdef int status = 1
 
-        ok_or_raise(<int>bmi_get_output_var_name_count(self._bmi, &count))
+        ok_or_raise(<int>bmi_get_output_item_count(self._bmi, &count))
 
         try:
             names = <char**>malloc(count * sizeof(char*))
@@ -254,6 +281,11 @@ cdef class Hydrotrend:
         ok_or_raise(<int>bmi_get_grid_size(self._bmi, gid, &size))
         return size
 
+    cpdef int get_grid_node_count(self, gid):
+        cdef int size
+        ok_or_raise(<int>bmi_get_grid_size(self._bmi, gid, &size))
+        return size
+
     cpdef object get_grid_type(self, gid):
         ok_or_raise(bmi_get_grid_type(self._bmi, gid, self.STR_BUFFER))
         return self.STR_BUFFER
@@ -269,7 +301,5 @@ cdef class Hydrotrend:
     cpdef get_grid_origin(self, int gid, np.ndarray[double, ndim=1] origin):
         ok_or_raise(<int>bmi_get_grid_origin(self._bmi, gid, &origin[0]))
         return origin
-
-    
 
 

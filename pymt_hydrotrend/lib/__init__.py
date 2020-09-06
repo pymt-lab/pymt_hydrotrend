@@ -1,3 +1,8 @@
 #! /usr/bin/env python
 
-from ._bmi import Hydrotrend
+
+from .hydrotrend import Hydrotrend
+
+__all__ = [
+    "Hydrotrend",
+]

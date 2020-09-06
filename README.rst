@@ -4,7 +4,7 @@ pymt_hydrotrend
 
 
 .. image:: https://img.shields.io/badge/CSDMS-Basic%20Model%20Interface-green.svg
-        :target: https://bmi-forum.readthedocs.io/
+        :target: https://bmi.readthedocs.io/
         :alt: Basic Model Interface
 
 .. image:: https://img.shields.io/badge/recipe-pymt_hydrotrend-green.svg
@@ -25,9 +25,17 @@ pymt_hydrotrend
 PyMT plugin for hydrotrend
 
 
-* Free software: MIT license
+* Free software: MIT License
 * Documentation: https://hydrotrend.readthedocs.io.
 
+
+
+
+========== ====================================
+Component  PyMT
+========== ====================================
+Hydrotrend `from pymt.models import Hydrotrend`
+========== ====================================
 
 ---------------
 Installing pymt
@@ -45,7 +53,7 @@ into which to install it. This can be done with,
 
 .. code::
 
-  conda create -n pymt python=3.6
+  conda create -n pymt python=3
   conda activate pymt
 
 Once the `conda-forge` channel has been enabled, `pymt` can be installed with:

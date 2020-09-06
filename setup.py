@@ -3,71 +3,68 @@ import os
 import sys
 
 import numpy as np
-import versioneer
-from setuptools import find_packages, setup
+from setuptools import Extension, find_packages, setup
 
-from distutils.extension import Extension
+common_flags = {
+    "include_dirs": [np.get_include(), os.path.join(sys.prefix, "include"),],
+    "library_dirs": [],
+    "define_macros": [],
+    "undef_macros": [],
+    "extra_compile_args": [],
+    "language": "c",
+}
 
-try:
-    import model_metadata
-except ImportError:
+libraries = []
 
-    def get_cmdclass(*args, **kwds):
-        return kwds.get("cmdclass", None)
-
-    def get_entry_points(*args):
-        return None
-
-
-else:
-    from model_metadata.utils import get_cmdclass, get_entry_points
-
-
-import numpy as np
-
-
-include_dirs = [np.get_include(), os.path.join(sys.prefix, "include")]
-
-
-libraries = ["bmi_hydrotrend"]
-
-
-library_dirs = []
-
-
-define_macros = []
-
-undef_macros = []
-
-
-extra_compile_args = []
-
+# Locate directories under Windows %LIBRARY_PREFIX%.
+if sys.platform.startswith("win"):
+    common_flags["include_dirs"].append(os.path.join(sys.prefix, "Library", "include"))
+    common_flags["library_dirs"].append(os.path.join(sys.prefix, "Library", "lib"))
 
 ext_modules = [
     Extension(
-        "pymt_hydrotrend.lib._bmi",
-        ["pymt_hydrotrend/lib/_bmi.pyx"],
-        language="c",
-        include_dirs=include_dirs,
-        libraries=libraries,
-        library_dirs=library_dirs,
-        define_macros=define_macros,
-        undef_macros=undef_macros,
-        extra_compile_args=extra_compile_args,
-    )
+        "pymt_hydrotrend.lib.hydrotrend",
+        ["pymt_hydrotrend/lib/hydrotrend.pyx"],
+        libraries=libraries + ["bmi_hydrotrend"],
+        **common_flags
+    ),
 ]
 
-packages = find_packages()
-pymt_components = [("Hydrotrend=pymt_hydrotrend.lib:Hydrotrend", "meta/Hydrotrend")]
+entry_points = {"pymt.plugins": ["Hydrotrend=pymt_hydrotrend.bmi:Hydrotrend",]}
+
+
+def read(filename):
+    with open(filename, "r", encoding="utf-8") as fp:
+        return fp.read()
+
+
+long_description = u"\n\n".join(
+    [read("README.rst"), read("CREDITS.rst"), read("CHANGES.rst")]
+)
+
 
 setup(
     name="pymt_hydrotrend",
     author="Eric Hutton",
-    description="PyMT plugin hydrotrend",
-    version=versioneer.get_version(),
+    author_email="eric.hutton@colorado.edu",
+    description="PyMT plugin for hydrotrend",
+    long_description=long_description,
+    version="0.2.0.dev0",
+    url="https://github.com/mcflugen/pymt_hydrotrend",
+    classifiers=[
+        "Development Status :: 4 - Beta",
+        "Intended Audience :: Science/Research",
+        "License :: OSI Approved :: MIT License",
+        "Operating System :: MacOS :: MacOS X",
+        "Operating System :: POSIX :: Linux",
+        "Programming Language :: Python :: 3 :: Only",
+        "Programming Language :: Python :: 3.8",
+    ],
+    keywords=["bmi", "pymt"],
+    install_requires=open("requirements.txt", "r").read().splitlines(),
     setup_requires=["cython"],
     ext_modules=ext_modules,
-    packages=packages,
-    cmdclass=get_cmdclass(pymt_components, cmdclass=versioneer.get_cmdclass()),
-    entry_points=get_entry_points(pymt_components),
+    packages=find_packages(),
+    entry_points=entry_points,
+    include_package_data=True,
 )

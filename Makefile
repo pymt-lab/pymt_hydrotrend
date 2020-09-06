@@ -58,8 +58,7 @@ pretty:
 	black setup.py pymt_hydrotrend
 
 test: ## run tests quickly with the default Python
-	config_file=$(mmd-stage Hydrotrend . > MANIFEST && mmd-query Hydrotrend --var=run.config_file.path)
-	bmi-test pymt_hydrotrend.bmi:Hydrotrend --infile=$config_file --manifest=MANIFEST -v
+	bmi-test pymt_hydrotrend.bmi:Hydrotrend -vvv
 
 test-all: ## run tests on every Python version with tox
 	tox
@@ -90,4 +89,4 @@ dist: clean ## builds source and wheel package
 	ls -l dist
 
 install: clean ## install the package to the active Python's site-packages
-	python setup.py develop
+	pip install -e .
