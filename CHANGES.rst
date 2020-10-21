@@ -1,8 +1,8 @@
 Changelog for pymt_hydrotrend
 =============================
 
-0.2.1 (unreleased)
--------------------
+0.2.1 (2020-10-20)
+------------------
 
 - Rerender with babelizer 0.3.2.
 
