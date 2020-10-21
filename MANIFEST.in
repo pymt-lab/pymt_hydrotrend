@@ -5,9 +5,11 @@ include *.rst
 include *.txt
 include Makefile
 include babel.toml
-include pymt_rafem/data
+recursive-include pymt_hydrotrend *.pyx
 recursive-include docs *.py
 recursive-include docs *.rst
 recursive-include docs Makefile
 recursive-exclude meta *
 recursive-exclude recipe *
+recursive-exclude pymt_hydrotrend *.cpp
+recursive-exclude pymt_hydrotrend *.c

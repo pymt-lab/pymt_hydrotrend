@@ -1,23 +1,26 @@
+[library]
+[library.Hydrotrend]
+language = "c"
+library = "bmi_hydrotrend"
+header = "hydrotrend/bmi_hydrotrend.h"
+entry_point = "register_bmi_hydrotrend"
+
 [build]
+undef_macros = []
 define_macros = []
-extra_compile_args = []
-include_dirs = []
 libraries = []
 library_dirs = []
-undef_macros = []
+include_dirs = []
+extra_compile_args = []
+
+[package]
+name = "pymt_hydrotrend"
+requirements = ["hydrotrend"]
 
 [info]
+package_author = "Eric Hutton"
+package_author_email = "eric.hutton@colorado.edu"
 github_username = "mcflugen"
-plugin_author = "Eric Hutton"
-plugin_author_email = "eric.hutton@colorado.edu"
-plugin_license = "MIT"
+package_license = "MIT"
 summary = "PyMT plugin for hydrotrend"
-
-[library]
-entry_point = ["Hydrotrend=bmi_hydrotrend:register_bmi_hydrotrend"]
-language = "c"
-
-[plugin]
-name = "hydrotrend"
-requirements = ["hydrotrend"]
 

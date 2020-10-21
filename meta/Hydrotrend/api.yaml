@@ -1,4 +1,4 @@
-name: hydrotrend
+name: pymt_hydrotrend
 language: c
-package: hydrotrend
+package: pymt_hydrotrend
 class: Hydrotrend

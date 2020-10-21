@@ -13,8 +13,8 @@ pymt_hydrotrend
 .. image:: https://img.shields.io/travis/mcflugen/pymt_hydrotrend.svg
         :target: https://travis-ci.org/mcflugen/pymt_hydrotrend
 
-.. image:: https://readthedocs.org/projects/pymt_hydrotrend/badge/?version=latest
-        :target: https://pymt_hydrotrend.readthedocs.io/en/latest/?badge=latest
+.. image:: https://readthedocs.org/projects/pymt-hydrotrend/badge/?version=latest
+        :target: https://pymt-hydrotrend.readthedocs.io/en/latest/?badge=latest
         :alt: Documentation Status
 
 .. image:: https://img.shields.io/badge/code%20style-black-000000.svg
@@ -26,7 +26,7 @@ PyMT plugin for hydrotrend
 
 
 * Free software: MIT License
-* Documentation: https://hydrotrend.readthedocs.io.
+* Documentation: https://pymt-hydrotrend.readthedocs.io.
 
 
 
@@ -34,6 +34,7 @@ PyMT plugin for hydrotrend
 ========== ====================================
 Component  PyMT
 ========== ====================================
+
 Hydrotrend `from pymt.models import Hydrotrend`
 ========== ====================================
 

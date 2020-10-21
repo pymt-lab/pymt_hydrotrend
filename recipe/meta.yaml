@@ -37,7 +37,7 @@ test:
     - bmi-test pymt_hydrotrend.bmi:Hydrotrend --config-file=$config_file --manifest=MANIFEST -v
 
 about:
-  summary: Python package that wraps the hydrotrend BMI.
+  summary: Python package that wraps the pymt_hydrotrend BMI.
   home: https://github.com/mcflugen/pymt_hydrotrend
   license: MIT License
   license_file: LICENSE

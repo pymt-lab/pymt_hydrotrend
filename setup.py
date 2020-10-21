@@ -47,9 +47,9 @@ setup(
     name="pymt_hydrotrend",
     author="Eric Hutton",
     author_email="eric.hutton@colorado.edu",
-    description="PyMT plugin for hydrotrend",
+    description="PyMT plugin for pymt_hydrotrend",
     long_description=long_description,
-    version="0.2.1.dev0",
+    version="0.2",
     url="https://github.com/mcflugen/pymt_hydrotrend",
     classifiers=[
         "Development Status :: 4 - Beta",
